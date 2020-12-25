@@ -28,8 +28,14 @@ class User extends Component {
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state) {   
     return { user: state.user }
 }
+
+function loadData(store) {
+    return store.dispatch(fetchUsers())
+}
+
+export { loadData };
 
 export default connect(mapStateToProps, { fetchUsers })(User)
