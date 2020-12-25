@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 app.listen(3000, () => {
 
-    console.log("listenings")
+    console.log("Application running on port 3000")
 
 
 
