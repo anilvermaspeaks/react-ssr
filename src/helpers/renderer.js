@@ -3,10 +3,12 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config'
-
+import CircularJSON from 'circular-json'
 import Routes from '../client/Routes';
+import serialize from 'serialize-javascript'
 
 export default (req, store) => {
+    const data = CircularJSON.stringify(store.getState());
     const content = renderToString(
         <Provider store={store}><StaticRouter
             location={req.path} context={{}}>
@@ -17,6 +19,7 @@ export default (req, store) => {
         <body>
 
             <div id="root">${content}</div>
+            <script>window.INITIAL_STATE = ${ serialize(JSON.parse(data)) } </script >
             <script src="bundle.js"></script>
         </body>
     </html>`
